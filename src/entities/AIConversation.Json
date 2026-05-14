@@ -1,0 +1,67 @@
+{
+  "name": "AIConversation",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "description": "ID \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "ID \u043a\u043b\u0438\u0435\u043d\u0442\u0430"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "telegram",
+        "whatsapp",
+        "web",
+        "instagram"
+      ],
+      "description": "\u041a\u0430\u043d\u0430\u043b"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ai_active",
+        "human_active",
+        "closed",
+        "waiting"
+      ],
+      "default": "ai_active"
+    },
+    "last_message": {
+      "type": "string"
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "booking_request",
+        "price_question",
+        "menu_question",
+        "working_hours",
+        "payment_question",
+        "cancel_reservation",
+        "modify_reservation",
+        "complaint",
+        "human_request",
+        "general",
+        "unknown"
+      ]
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "messages_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "organization_id",
+    "channel"
+  ]
+}

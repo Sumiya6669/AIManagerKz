@@ -1,0 +1,50 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "description": "ID \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "ID \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f"
+    },
+    "reservation_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "new_booking",
+        "payment_received",
+        "booking_cancelled",
+        "reminder",
+        "escalation",
+        "system",
+        "integration_error"
+      ],
+      "description": "\u0422\u0438\u043f \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u044f"
+    },
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "unread",
+        "read"
+      ],
+      "default": "unread"
+    }
+  },
+  "required": [
+    "organization_id",
+    "type",
+    "title",
+    "message"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Table",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "description": "ID \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438"
+    },
+    "branch_id": {
+      "type": "string",
+      "description": "ID \u0444\u0438\u043b\u0438\u0430\u043b\u0430"
+    },
+    "name": {
+      "type": "string",
+      "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435/\u043d\u043e\u043c\u0435\u0440 \u0441\u0442\u043e\u043b\u0430"
+    },
+    "capacity": {
+      "type": "number",
+      "description": "\u0412\u043c\u0435\u0441\u0442\u0438\u043c\u043e\u0441\u0442\u044c"
+    },
+    "zone": {
+      "type": "string",
+      "enum": [
+        "main",
+        "vip",
+        "terrace",
+        "bar",
+        "private",
+        "banquet"
+      ],
+      "description": "\u0417\u043e\u043d\u0430"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "reserved",
+        "occupied",
+        "maintenance"
+      ],
+      "default": "available"
+    }
+  },
+  "required": [
+    "organization_id",
+    "name",
+    "capacity"
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "name": "Reservation",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "description": "ID \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438"
+    },
+    "branch_id": {
+      "type": "string",
+      "description": "ID \u0444\u0438\u043b\u0438\u0430\u043b\u0430"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "ID \u043a\u043b\u0438\u0435\u043d\u0442\u0430"
+    },
+    "reservation_type": {
+      "type": "string",
+      "enum": [
+        "table",
+        "room",
+        "bath",
+        "hall"
+      ],
+      "default": "table"
+    },
+    "table_id": {
+      "type": "string",
+      "description": "ID \u0441\u0442\u043e\u043b\u0430"
+    },
+    "room_id": {
+      "type": "string",
+      "description": "ID \u043d\u043e\u043c\u0435\u0440\u0430 (\u0434\u043b\u044f \u0433\u043e\u0441\u0442\u0438\u043d\u0438\u0446)"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u0414\u0430\u0442\u0430 \u0431\u0440\u043e\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f"
+    },
+    "start_time": {
+      "type": "string",
+      "description": "\u0412\u0440\u0435\u043c\u044f \u043d\u0430\u0447\u0430\u043b\u0430"
+    },
+    "end_time": {
+      "type": "string",
+      "description": "\u0412\u0440\u0435\u043c\u044f \u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u044f"
+    },
+    "guests_count": {
+      "type": "number",
+      "description": "\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0433\u043e\u0441\u0442\u0435\u0439"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "pending_payment",
+        "confirmed",
+        "cancelled",
+        "completed",
+        "no_show"
+      ],
+      "default": "new"
+    },
+    "deposit_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "deposit_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "not_required",
+        "pending",
+        "paid",
+        "failed",
+        "refunded"
+      ],
+      "default": "not_required"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "source_channel": {
+      "type": "string",
+      "enum": [
+        "telegram",
+        "whatsapp",
+        "web",
+        "instagram",
+        "phone",
+        "walk_in",
+        "ai"
+      ]
+    },
+    "ai_conversation_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "\u0418\u043c\u044f \u043a\u043b\u0438\u0435\u043d\u0442\u0430 (\u0434\u0435\u043d\u043e\u0440\u043c\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043e)"
+    },
+    "customer_phone": {
+      "type": "string",
+      "description": "\u0422\u0435\u043b\u0435\u0444\u043e\u043d \u043a\u043b\u0438\u0435\u043d\u0442\u0430 (\u0434\u0435\u043d\u043e\u0440\u043c\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043e)"
+    }
+  },
+  "required": [
+    "organization_id",
+    "date",
+    "guests_count"
+  ]
+}
