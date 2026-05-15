@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --background: 240 20% 99%;
+    --foreground: 240 10% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 8%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 12% 96%;
+    --secondary-foreground: 240 10% 20%;
+    --muted: 240 12% 96%;
+    --muted-foreground: 240 8% 52%;
+    --accent: 171 72% 44%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 4 86% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 8% 91%;
+    --input: 240 8% 91%;
+    --ring: 243 75% 59%;
+    --chart-1: 243 75% 59%;
+    --chart-2: 171 72% 44%;
+    --chart-3: 38 95% 54%;
+    --chart-4: 4 86% 58%;
+    --chart-5: 280 68% 62%;
+    --radius: 0.75rem;
+    --sidebar-background: 240 18% 98%;
+    --sidebar-foreground: 240 10% 8%;
+    --sidebar-primary: 243 75% 59%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 12% 94%;
+    --sidebar-accent-foreground: 240 10% 20%;
+    --sidebar-border: 240 8% 91%;
+    --sidebar-ring: 243 75% 59%;
+
+    /* AI-specific tokens */
+    --ai-glow: 243 75% 59%;
+    --ai-pulse: 171 72% 44%;
+    --surface-glass: rgba(255, 255, 255, 0.7);
+    --surface-elevated: rgba(255, 255, 255, 0.95);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 24px -4px rgba(99, 91, 255, 0.08), 0 1px 0 0 rgba(255,255,255,0.9) inset;
+  }
+
+  /* AI Glow */
+  .ai-glow {
+    box-shadow: 0 0 0 1px rgba(99, 91, 255, 0.15), 0 4px 24px -4px rgba(99, 91, 255, 0.2), 0 0 48px -12px rgba(99, 91, 255, 0.15);
+  }
+
+  .ai-glow-sm {
+    box-shadow: 0 0 0 1px rgba(99, 91, 255, 0.1), 0 2px 12px -2px rgba(99, 91, 255, 0.15);
+  }
+
+  /* Premium shadow */
+  .shadow-premium {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.04);
+  }
+
+  .shadow-card {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.03), 0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+
+  /* AI pulse animation */
+  .ai-pulse {
+    animation: ai-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .ai-thinking {
+    animation: ai-thinking 1.4s ease-in-out infinite;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(243, 75%, 59%) 0%, hsl(280, 68%, 62%) 50%, hsl(171, 72%, 44%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-ai {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer loading */
+  .shimmer {
+    background: linear-gradient(90deg, hsl(240, 12%, 96%) 25%, hsl(240, 12%, 92%) 50%, hsl(240, 12%, 96%) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Status dot */
+  .status-online {
+    background: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2), 0 0 8px rgba(16, 185, 129, 0.4);
+  }
+
+  .status-processing {
+    background: hsl(243, 75%, 59%);
+    box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.2), 0 0 8px rgba(99, 91, 255, 0.4);
+  }
+
+  .status-warning {
+    background: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+  }
+
+  /* Noise texture overlay */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(240, 8%, 85%);
+    border-radius: 2px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(240, 8%, 72%);
+  }
+}
+
+@keyframes ai-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes ai-thinking {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  0% { opacity: 0; transform: translateX(16px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.8; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-float-up {
+  animation: float-up 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

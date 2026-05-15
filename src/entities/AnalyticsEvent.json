@@ -1,0 +1,47 @@
+{
+  "name": "AnalyticsEvent",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "description": "ID \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "message_received",
+        "booking_created",
+        "booking_confirmed",
+        "booking_cancelled",
+        "payment_created",
+        "payment_completed",
+        "ai_response",
+        "human_escalation",
+        "upsell_offered",
+        "upsell_accepted"
+      ],
+      "description": "\u0422\u0438\u043f \u0441\u043e\u0431\u044b\u0442\u0438\u044f"
+    },
+    "source_channel": {
+      "type": "string",
+      "enum": [
+        "telegram",
+        "whatsapp",
+        "web",
+        "instagram",
+        "phone",
+        "walk_in"
+      ]
+    },
+    "value": {
+      "type": "number"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "organization_id",
+    "event_type"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "name": "Customer",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "description": "ID \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "\u041f\u043e\u043b\u043d\u043e\u0435 \u0438\u043c\u044f \u043a\u043b\u0438\u0435\u043d\u0442\u0430"
+    },
+    "phone": {
+      "type": "string",
+      "description": "\u0422\u0435\u043b\u0435\u0444\u043e\u043d"
+    },
+    "telegram_id": {
+      "type": "string",
+      "description": "Telegram ID"
+    },
+    "whatsapp_id": {
+      "type": "string",
+      "description": "WhatsApp ID"
+    },
+    "instagram_id": {
+      "type": "string",
+      "description": "Instagram ID"
+    },
+    "source_channel": {
+      "type": "string",
+      "enum": [
+        "telegram",
+        "whatsapp",
+        "web",
+        "instagram",
+        "phone",
+        "walk_in"
+      ],
+      "description": "\u041a\u0430\u043d\u0430\u043b \u043f\u0440\u0438\u0432\u043b\u0435\u0447\u0435\u043d\u0438\u044f"
+    },
+    "notes": {
+      "type": "string",
+      "description": "\u0417\u0430\u043c\u0435\u0442\u043a\u0438"
+    },
+    "total_bookings": {
+      "type": "number",
+      "default": 0
+    },
+    "total_spent": {
+      "type": "number",
+      "default": 0
+    },
+    "last_contact_at": {
+      "type": "string",
+      "description": "\u0414\u0430\u0442\u0430 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0435\u0433\u043e \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u0430"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u0422\u0435\u0433\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0430"
+    }
+  },
+  "required": [
+    "organization_id",
+    "full_name"
+  ]
+}
