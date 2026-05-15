@@ -1,6 +1,6 @@
 create extension if not exists "pgcrypto";
 
-create type public.business_type as enum ('restaurant', 'restobar', 'cafe', 'hotel', 'other');
+create type public.business_type as enum ('restaurant', 'restobar', 'cafe', 'hotel', 'bath_complex', 'other');
 create type public.profile_role as enum ('owner', 'admin', 'manager', 'operator', 'accountant', 'viewer');
 create type public.reservation_status as enum ('new', 'pending_payment', 'confirmed', 'cancelled', 'completed', 'no_show');
 create type public.payment_status as enum ('pending', 'paid', 'failed', 'refunded', 'cancelled');
@@ -276,6 +276,19 @@ create table public.subscriptions (
   unique (organization_id)
 );
 
+create table public.audit_logs (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid not null references public.organizations(id) on delete cascade,
+  actor_id uuid references public.profiles(id) on delete set null,
+  action text not null,
+  entity_type text,
+  entity_id uuid,
+  metadata jsonb not null default '{}'::jsonb,
+  ip_address inet,
+  user_agent text,
+  created_at timestamptz not null default now()
+);
+
 create index idx_profiles_organization on public.profiles(organization_id);
 create index idx_branches_organization on public.branches(organization_id);
 create index idx_customers_organization_phone on public.customers(organization_id, phone);
@@ -288,6 +301,7 @@ create index idx_integration_logs_org_created on public.integration_logs(organiz
 create index idx_analytics_events_org_created on public.analytics_events(organization_id, created_at desc);
 create index idx_ai_agent_runs_org_created on public.ai_agent_runs(organization_id, created_at desc);
 create index idx_ai_tool_calls_run on public.ai_tool_calls(agent_run_id);
+create index idx_audit_logs_org_created on public.audit_logs(organization_id, created_at desc);
 
 create trigger set_organizations_updated_at before update on public.organizations for each row execute function public.set_updated_at();
 create trigger set_profiles_updated_at before update on public.profiles for each row execute function public.set_updated_at();

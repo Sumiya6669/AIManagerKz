@@ -6,23 +6,25 @@ import {
   UtensilsCrossed, CreditCard, Zap, BarChart3, Mic, ChevronLeft, Brain,
   X, Building2, ShieldCheck
 } from 'lucide-react';
+import { useI18n } from '@/i18n';
 
 const navItems = [
-  { label: 'Command Center', path: '/dashboard', icon: LayoutDashboard },
-  { label: 'Reservations', path: '/reservations', icon: CalendarDays },
-  { label: 'Customers CRM', path: '/customers', icon: Users },
-  { label: 'AI Dialogs', path: '/ai-dialogs', icon: MessageSquare },
-  { label: 'Voice AI', path: '/voice-ai', icon: Mic },
-  { label: 'Menu', path: '/menu', icon: UtensilsCrossed },
-  { label: 'Payments', path: '/payments', icon: CreditCard },
-  { label: 'Analytics', path: '/analytics', icon: BarChart3 },
-  { label: 'Integrations', path: '/integrations', icon: Zap },
-  { label: 'AI Settings', path: '/ai-settings', icon: Brain },
-  { label: 'Settings', path: '/settings', icon: Settings },
+  { labelKey: 'nav.dashboard', path: '/dashboard', icon: LayoutDashboard },
+  { labelKey: 'nav.reservations', path: '/reservations', icon: CalendarDays },
+  { labelKey: 'nav.customers', path: '/customers', icon: Users },
+  { labelKey: 'nav.aiDialogs', path: '/ai-dialogs', icon: MessageSquare },
+  { labelKey: 'nav.voiceAi', path: '/voice-ai', icon: Mic },
+  { labelKey: 'nav.menu', path: '/menu', icon: UtensilsCrossed },
+  { labelKey: 'nav.payments', path: '/payments', icon: CreditCard },
+  { labelKey: 'nav.analytics', path: '/analytics', icon: BarChart3 },
+  { labelKey: 'nav.integrations', path: '/integrations', icon: Zap },
+  { labelKey: 'nav.aiSettings', path: '/ai-settings', icon: Brain },
+  { labelKey: 'nav.settings', path: '/settings', icon: Settings },
 ];
 
 export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
   const location = useLocation();
+  const { t } = useI18n();
 
   const content = (
     <aside className={cn(
@@ -72,8 +74,9 @@ export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobile
       )}
 
       <nav className="custom-scrollbar flex-1 space-y-0.5 overflow-y-auto px-2 py-3">
-        {navItems.map(({ label, path, icon: Icon }) => {
+        {navItems.map(({ labelKey, path, icon: Icon }) => {
           const active = location.pathname === path;
+          const label = t(labelKey);
           return (
             <Link
               key={path}

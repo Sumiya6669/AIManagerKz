@@ -22,7 +22,7 @@ export const activityFeed = [
   { time: '14:11', type: 'booking', title: 'Бронь создана', text: '4 гостя · сегодня 20:00 · VIP-зона' },
   { time: '14:10', type: 'payment', title: 'Kaspi ссылка отправлена', text: '10 000 ₸ · deposit · expires in 15 min' },
   { time: '14:08', type: 'sync', title: 'iiko sync complete', text: 'reservation_id RSV-2031 · 2 сек назад' },
-  { time: '14:07', type: 'alert', title: 'Эскалация менеджеру', text: 'Банкет на 30 гостей требует ручного расчета' },
+  { time: '14:07', type: 'alert', title: 'Эскалация менеджеру', text: 'Банкет на 30 гостей требует ручного расчёта' },
   { time: '14:05', type: 'upsell', title: 'AI предложил upsell', text: 'Депозит + сет “Chef table” · вероятность 74%' },
 ];
 
@@ -44,7 +44,7 @@ export const conversations = [
     confidence: 0.96,
     sentiment: 'positive',
     lastMessage: 'Да, бронируйте. Kaspi подходит.',
-    summary: 'Клиент хочет столик на 4 гостей сегодня в 20:00. AI нашел доступный VIP-стол и создает оплату.',
+    summary: 'Клиент хочет столик на 4 гостей сегодня в 20:00. AI нашёл доступный VIP-стол и создаёт оплату.',
   },
   {
     id: 'conv_102',
@@ -55,7 +55,7 @@ export const conversations = [
     confidence: 0.83,
     sentiment: 'neutral',
     lastMessage: 'Нужен банкет на 30 человек и отдельное меню.',
-    summary: 'Нужен ручной расчет банкета. AI собрал дату, бюджет и предпочтения.',
+    summary: 'Нужен ручной расчёт банкета. AI собрал дату, бюджет и предпочтения.',
   },
   {
     id: 'conv_103',
@@ -87,7 +87,7 @@ export const chatMessages = [
   { role: 'customer', time: '14:04', text: 'Лучше VIP, если есть свободно.' },
   { role: 'ai', time: '14:04', text: 'Есть свободный стол №7 в VIP-зоне на 20:00. Создать бронь и отправить Kaspi предоплату 10 000 ₸?', tool: 'get_available_slots(date, time, guests)' },
   { role: 'customer', time: '14:05', text: 'Да, бронируйте. Kaspi подходит.' },
-  { role: 'ai', time: '14:05', text: 'Готово. Бронь создана, ссылка Kaspi отправлена. После оплаты я автоматически подтвержу бронь и отправлю ее в iiko.', tool: 'create_reservation() -> create_payment() -> send_notification()' },
+  { role: 'ai', time: '14:05', text: 'Готово. Бронь создана, ссылка Kaspi отправлена. После оплаты я автоматически подтвержу бронь и отправлю её в iiko.', tool: 'create_reservation() -> create_payment() -> send_notification()' },
 ];
 
 export const toolTimeline = [
@@ -100,12 +100,17 @@ export const toolTimeline = [
 ];
 
 export const integrations = [
-  { name: 'Telegram Bot', category: 'Каналы', status: 'connected', requests: '1 420', latency: '48ms' },
-  { name: 'WhatsApp Business', category: 'Каналы', status: 'pending', requests: '284', latency: '112ms' },
-  { name: 'Kaspi Pay', category: 'Оплаты', status: 'connected', requests: '89', latency: '124ms' },
-  { name: 'Halyk epay', category: 'Оплаты', status: 'error', requests: '34', latency: '890ms' },
-  { name: 'iiko POS', category: 'POS', status: 'connected', requests: '3 812', latency: '22ms' },
-  { name: '1C', category: 'Accounting', status: 'mock', requests: '0', latency: '-' },
+  { name: 'Telegram Bot', category: 'Communication', status: 'connected', requests: '1 420', latency: '48ms', lastSync: '2 мин назад', env: 'TELEGRAM_BOT_TOKEN' },
+  { name: 'WhatsApp Business API', category: 'Communication', status: 'pending', requests: '284', latency: '112ms', lastSync: 'ожидает ключ', env: 'WHATSAPP_API_TOKEN' },
+  { name: 'Instagram Direct', category: 'Communication', status: 'mock', requests: '0', latency: '-', lastSync: 'placeholder', env: 'INSTAGRAM_API_TOKEN' },
+  { name: 'Web Chat', category: 'Communication', status: 'connected', requests: '830', latency: '31ms', lastSync: 'сейчас', env: 'VITE_WEBCHAT_PUBLIC_KEY' },
+  { name: 'Kaspi Pay', category: 'Payments', status: 'connected', requests: '89', latency: '124ms', lastSync: '5 мин назад', env: 'KASPI_API_KEY' },
+  { name: 'Halyk epay', category: 'Payments', status: 'error', requests: '34', latency: '890ms', lastSync: 'ошибка подписи', env: 'HALYK_API_KEY' },
+  { name: 'Freedom Pay', category: 'Payments', status: 'mock', requests: '0', latency: '-', lastSync: 'placeholder', env: 'FREEDOM_PAY_API_KEY' },
+  { name: 'Manual payment', category: 'Payments', status: 'connected', requests: '12', latency: '-', lastSync: 'manual', env: '-' },
+  { name: 'iiko POS', category: 'POS', status: 'connected', requests: '3 812', latency: '22ms', lastSync: '2 сек назад', env: 'IIKO_API_KEY' },
+  { name: '1C', category: 'Accounting', status: 'mock', requests: '0', latency: '-', lastSync: 'placeholder', env: 'ONE_C_API_TOKEN' },
+  { name: 'n8n Webhooks', category: 'Automation', status: 'connected', requests: '208', latency: '74ms', lastSync: '1 мин назад', env: 'N8N_WEBHOOK_SECRET' },
 ];
 
 export const customers = [

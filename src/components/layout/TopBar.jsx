@@ -3,6 +3,8 @@ import { Command } from 'cmdk';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, LogOut, ChevronDown, Menu, Search, Building2, GitBranch, Command as CommandIcon, ArrowRight } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
+import { useI18n } from '@/i18n';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { organization } from '@/data/mockData';
 import {
   DropdownMenu,
@@ -14,29 +16,30 @@ import {
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
-const actions = [
-  { label: 'Открыть Command Center', path: '/dashboard', hint: 'Dashboard' },
-  { label: 'AI Dialogs', path: '/ai-dialogs', hint: 'Support center' },
-  { label: 'Новая бронь', path: '/reservations', hint: 'Reservations' },
-  { label: 'Интеграции', path: '/integrations', hint: 'iiko, 1C, Kaspi' },
-  { label: 'AI Settings', path: '/ai-settings', hint: 'Agents policy' },
-  { label: 'Deployment settings', path: '/settings', hint: 'Org, team, plan' },
-];
-
 export default function TopBar({ user, onMenuClick }) {
   const [commandOpen, setCommandOpen] = useState(false);
   const [query, setQuery] = useState('');
   const { logout } = useAuth();
+  const { t } = useI18n();
   const navigate = useNavigate();
+
+  const actions = useMemo(() => [
+    { label: t('nav.dashboard'), path: '/dashboard', hint: 'Dashboard' },
+    { label: t('nav.aiDialogs'), path: '/ai-dialogs', hint: 'Support center' },
+    { label: t('nav.reservations'), path: '/reservations', hint: 'Reservations' },
+    { label: t('nav.integrations'), path: '/integrations', hint: 'iiko, 1C, Kaspi' },
+    { label: t('nav.aiSettings'), path: '/ai-settings', hint: 'Agents policy' },
+    { label: t('nav.settings'), path: '/settings', hint: 'Org, team, plan' },
+  ], [t]);
 
   const filteredActions = useMemo(() => {
     const normalized = query.toLowerCase();
     return actions.filter((action) => action.label.toLowerCase().includes(normalized) || action.hint.toLowerCase().includes(normalized));
-  }, [query]);
+  }, [actions, query]);
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border/60 bg-white/82 px-4 backdrop-blur-xl sm:px-6">
-      <button className="rounded-lg p-2 text-muted-foreground hover:bg-secondary lg:hidden" onClick={onMenuClick} aria-label="Открыть меню">
+      <button className="rounded-lg p-2 text-muted-foreground hover:bg-secondary lg:hidden" onClick={onMenuClick} aria-label="Open menu">
         <Menu className="h-5 w-5" />
       </button>
 
@@ -45,7 +48,7 @@ export default function TopBar({ user, onMenuClick }) {
         className="hidden min-w-[260px] items-center gap-2 rounded-xl border border-border/70 bg-white px-3 py-2 text-left text-sm text-muted-foreground shadow-sm transition hover:bg-secondary/60 md:flex"
       >
         <Search className="h-4 w-4" />
-        <span className="flex-1">Поиск или команда...</span>
+        <span className="flex-1">{t('common.search')}</span>
         <span className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px]">Ctrl K</span>
       </button>
 
@@ -84,10 +87,12 @@ export default function TopBar({ user, onMenuClick }) {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <button className="relative rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary">
+        <button className="relative rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary" aria-label="Notifications">
           <Bell className="h-4 w-4" />
           <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-primary" />
         </button>
+
+        <LanguageSwitcher compact />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -109,11 +114,11 @@ export default function TopBar({ user, onMenuClick }) {
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link to="/settings">Settings</Link>
+              <Link to="/settings">{t('nav.settings')}</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive" onClick={logout}>
               <LogOut className="mr-2 h-4 w-4" />
-              Logout
+              {t('auth.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -127,12 +132,12 @@ export default function TopBar({ user, onMenuClick }) {
               <Command.Input
                 value={query}
                 onValueChange={setQuery}
-                placeholder="Найти страницу, открыть действие..."
+                placeholder={t('common.search')}
                 className="h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
               />
             </div>
             <Command.List className="max-h-[320px] overflow-y-auto p-2">
-              <Command.Empty className="py-8 text-center text-sm text-muted-foreground">Ничего не найдено</Command.Empty>
+              <Command.Empty className="py-8 text-center text-sm text-muted-foreground">{t('pages.empty')}</Command.Empty>
               {filteredActions.map((action) => (
                 <Command.Item
                   key={action.path}
@@ -152,8 +157,8 @@ export default function TopBar({ user, onMenuClick }) {
               ))}
             </Command.List>
             <div className="flex items-center justify-between border-t border-border bg-muted/30 px-4 py-3">
-              <span className="text-xs text-muted-foreground">Команды доступны из любого раздела.</span>
-              <Button size="sm" variant="outline" onClick={() => setCommandOpen(false)}>Закрыть</Button>
+              <span className="text-xs text-muted-foreground">Commands are available from any section.</span>
+              <Button size="sm" variant="outline" onClick={() => setCommandOpen(false)}>{t('common.cancel')}</Button>
             </div>
           </Command>
         </DialogContent>

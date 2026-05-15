@@ -46,6 +46,7 @@ alter table public.analytics_events enable row level security;
 alter table public.ai_agent_runs enable row level security;
 alter table public.ai_tool_calls enable row level security;
 alter table public.subscriptions enable row level security;
+alter table public.audit_logs enable row level security;
 
 create policy "profiles can read org profiles"
 on public.profiles for select
@@ -117,3 +118,6 @@ create policy "service writes tool calls" on public.ai_tool_calls for insert wit
 
 create policy "tenant read subscriptions" on public.subscriptions for select using (organization_id = public.current_organization_id());
 create policy "admins write subscriptions" on public.subscriptions for all using (organization_id = public.current_organization_id() and public.is_org_admin()) with check (organization_id = public.current_organization_id() and public.is_org_admin());
+
+create policy "tenant read audit logs" on public.audit_logs for select using (organization_id = public.current_organization_id());
+create policy "service writes audit logs" on public.audit_logs for insert with check (organization_id is not null);

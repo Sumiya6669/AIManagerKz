@@ -39,7 +39,7 @@ export async function handleAgentMessage(input) {
   ];
   const actions = ['detect_intent', 'write_analytics_event'];
   let reply = 'Принял сообщение. Уточняю детали и продолжу диалог.';
-  let shouldEscalate = confidence < 0.65 || intent === 'complaint' || intent === 'human_request';
+  const shouldEscalate = confidence < 0.65 || intent === 'complaint' || intent === 'human_request';
 
   if (intent === 'booking_request' && !shouldEscalate) {
     const reservationId = `rsv_${Date.now()}`;
@@ -52,7 +52,7 @@ export async function handleAgentMessage(input) {
       { name: 'sync_iiko', status: 'mock', output: { queued: true } },
       { name: 'sync_1c', status: 'mock', output: { queued: true } }
     );
-    reply = `Нашел доступный слот и создал бронь. Ссылка на предоплату: https://pay.mock/${paymentId}. После оплаты бронь будет подтверждена автоматически.`;
+    reply = `Нашёл доступный слот и создал бронь. Ссылка на предоплату: https://pay.mock/${paymentId}. После оплаты бронь будет подтверждена автоматически.`;
   }
 
   if (shouldEscalate) {

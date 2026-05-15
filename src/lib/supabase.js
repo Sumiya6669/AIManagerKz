@@ -12,9 +12,15 @@ function isValidHttpUrl(value) {
   }
 }
 
-export const supabaseConfigError = supabaseUrl && !isValidHttpUrl(supabaseUrl)
-  ? 'VITE_SUPABASE_URL must be a valid http(s) URL.'
-  : null;
+function getSupabaseConfigError() {
+  if (supabaseUrl && !isValidHttpUrl(supabaseUrl)) return 'VITE_SUPABASE_URL must be a valid http(s) URL.';
+  if (supabaseAnonKey && /sb_secret|service_role|supabase_service/i.test(supabaseAnonKey)) {
+    return 'VITE_SUPABASE_ANON_KEY must be a public anon/publishable key, not a secret/service-role key.';
+  }
+  return null;
+}
+
+export const supabaseConfigError = getSupabaseConfigError();
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey && !supabaseConfigError);
 

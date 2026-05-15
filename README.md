@@ -209,3 +209,69 @@ Replace mock methods with real API calls, then write all request/response payloa
 - Build cannot find dependencies: run `npm install` and commit lockfile.
 - SPA route returns 404 on Vercel: verify `vercel.json` rewrites.
 - Payment webhook is accepted but nothing persists: connect endpoint to Supabase service role writes.
+## Production SaaS Update
+
+### Environment
+
+Frontend may use only public browser-safe keys:
+
+```bash
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+Server-only keys must be configured in Vercel without `VITE_` prefix:
+
+```bash
+SUPABASE_SERVICE_ROLE_KEY=
+N8N_WEBHOOK_SECRET=
+TELEGRAM_BOT_TOKEN=
+WHATSAPP_API_TOKEN=
+KASPI_API_KEY=
+HALYK_API_KEY=
+FREEDOM_PAY_API_KEY=
+IIKO_API_KEY=
+ONE_C_API_URL=
+ONE_C_API_TOKEN=
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_GENERATIVE_AI_API_KEY=
+```
+
+Never put `sb_secret`, service-role or provider secret keys into `VITE_*` variables. If this happened, rotate the leaked key in Supabase/Vercel.
+
+### Auth and Registration
+
+The SaaS registration flow lives at `/register`.
+
+It calls `POST /api/auth/register`, which uses `SUPABASE_SERVICE_ROLE_KEY` server-side to create:
+
+- Supabase Auth user
+- organization
+- branch
+- owner profile
+- mock integration settings
+
+After registration the frontend signs in with Supabase Auth and redirects to `/onboarding`, then `/dashboard`.
+
+### i18n
+
+The app supports Russian, Kazakh and English through `src/i18n/index.jsx`.
+
+Language is persisted in `localStorage` and controlled by the global language switcher.
+
+### API Endpoints
+
+- `GET /api/health`
+- `POST /api/auth/register`
+- `POST /api/agents/message`
+- `POST /api/webhooks/n8n/message`
+- `POST /api/webhooks/payments/:provider`
+- `POST /api/webhooks/telegram`
+- `POST /api/webhooks/whatsapp`
+
+### Docs
+
+- `docs/deployment.md`
+- `docs/integrations.md`
+- `docs/n8n-workflows.md`

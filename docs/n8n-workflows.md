@@ -1,5 +1,17 @@
 # n8n workflows
 
+Webhook secret header:
+
+```http
+x-n8n-secret: ${N8N_WEBHOOK_SECRET}
+```
+
+Primary secured endpoint:
+
+```http
+POST /api/webhooks/n8n/message
+```
+
 Reserva Flow AI exposes Vercel API endpoints that n8n can call while the app keeps agent logic centralized.
 
 ## Endpoint

@@ -71,3 +71,8 @@ values
 insert into public.subscriptions (organization_id, plan, status, seats, branch_limit, trial_ends_at)
 values ('00000000-0000-0000-0000-000000000001', 'business', 'trialing', 10, 5, now() + interval '14 days')
 on conflict (organization_id) do nothing;
+
+insert into public.audit_logs (organization_id, action, entity_type, metadata)
+values
+  ('00000000-0000-0000-0000-000000000001', 'seed.created', 'workspace', '{"source":"seed.sql"}'),
+  ('00000000-0000-0000-0000-000000000001', 'integration.mock_ready', 'integrations', '{"providers":["telegram","whatsapp","kaspi","halyk","freedom_pay","iiko","1c","n8n"]}');
