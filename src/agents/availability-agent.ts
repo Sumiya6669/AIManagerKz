@@ -13,7 +13,7 @@ export class AvailabilityAgent {
       toolCall: {
         name: 'get_available_slots',
         status: 'mock',
-        input: entities,
+        input: { ...entities },
         output: { available: true, table_id },
         latency_ms: Date.now() - started,
       },

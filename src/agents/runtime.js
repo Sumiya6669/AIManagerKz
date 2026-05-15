@@ -14,10 +14,16 @@ function classifyIntent(message) {
 function extractEntities(message) {
   const text = String(message || '').toLowerCase();
   const guestsMatch = text.match(/(\d+)\s*(гост|человек|персон|people|guests)/);
-  const timeMatch = text.match(/([01]?\d|2[0-3])[:. ]?([0-5]\d)?/);
+  const explicitTimeMatch = text.match(/(?:^|[^\d])([01]?\d|2[0-3])[:.]([0-5]\d)(?=$|[^\d])/);
+  const prepositionTimeMatch = text.match(/(?:^|[^\p{L}\d])(?:в|к|at)\s*([01]?\d|2[0-3])(?=$|[^\d])/u);
+  const time = explicitTimeMatch
+    ? `${explicitTimeMatch[1].padStart(2, '0')}:${explicitTimeMatch[2]}`
+    : prepositionTimeMatch
+      ? `${prepositionTimeMatch[1].padStart(2, '0')}:00`
+      : undefined;
   return {
     guests: guestsMatch ? Number(guestsMatch[1]) : undefined,
-    time: timeMatch ? `${timeMatch[1].padStart(2, '0')}:${timeMatch[2] || '00'}` : undefined,
+    time,
     date: text.includes('завтра') ? 'tomorrow' : text.includes('сегодня') ? 'today' : undefined,
     payment_provider: text.includes('halyk') ? 'halyk' : text.includes('freedom') ? 'freedom_pay' : 'kaspi',
   };

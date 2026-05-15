@@ -33,7 +33,20 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    const { data, error } = await supabase.auth.getUser();
+    let authResult;
+    try {
+      authResult = await supabase.auth.getUser();
+    } catch (error) {
+      console.error('[Reserva Flow AI] Supabase auth check failed', error);
+      setUser(null);
+      setIsLoadingAuth(false);
+      setIsAuthenticated(false);
+      setAuthChecked(true);
+      setAuthError({ type: 'auth_required', message: 'Supabase authentication check failed' });
+      return;
+    }
+
+    const { data, error } = authResult;
     if (error || !data?.user) {
       setUser(null);
       setIsLoadingAuth(false);
