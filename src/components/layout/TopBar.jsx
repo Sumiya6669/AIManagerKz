@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 
 const actions = [
   { label: 'Открыть Command Center', path: '/dashboard', hint: 'Dashboard' },
-  { label: 'AI Dialogs', path: '/conversations', hint: 'Support center' },
+  { label: 'AI Dialogs', path: '/ai-dialogs', hint: 'Support center' },
   { label: 'Новая бронь', path: '/reservations', hint: 'Reservations' },
   { label: 'Интеграции', path: '/integrations', hint: 'iiko, 1C, Kaspi' },
   { label: 'AI Settings', path: '/ai-settings', hint: 'Agents policy' },

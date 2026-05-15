@@ -319,7 +319,7 @@ export default function Landing() {
                 <Badge variant="secondary">AI agent workflows</Badge>
                 <h2 className="mt-4 text-3xl font-black tracking-tight">От сообщения до оплаты и синхронизации</h2>
               </div>
-              <Link to="/conversations">
+              <Link to="/ai-dialogs">
                 <Button variant="outline" className="gap-2">Открыть AI Dialogs <ArrowRight className="h-4 w-4" /></Button>
               </Link>
             </div>

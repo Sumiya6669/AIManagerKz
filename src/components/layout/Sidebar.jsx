@@ -11,7 +11,7 @@ const navItems = [
   { label: 'Command Center', path: '/dashboard', icon: LayoutDashboard },
   { label: 'Reservations', path: '/reservations', icon: CalendarDays },
   { label: 'Customers CRM', path: '/customers', icon: Users },
-  { label: 'AI Dialogs', path: '/conversations', icon: MessageSquare },
+  { label: 'AI Dialogs', path: '/ai-dialogs', icon: MessageSquare },
   { label: 'Voice AI', path: '/voice-ai', icon: Mic },
   { label: 'Menu', path: '/menu', icon: UtensilsCrossed },
   { label: 'Payments', path: '/payments', icon: CreditCard },
